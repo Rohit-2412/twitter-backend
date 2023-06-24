@@ -2,7 +2,7 @@ import { PrismaClient, User } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
-const JWT_SECRET = "secret";
+const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 import { Request, Response, NextFunction } from "express";
 

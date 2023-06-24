@@ -6,7 +6,7 @@ const router = Router();
 const prisma = new PrismaClient();
 const EXPIRATION_TIME_MINUTES = 10;
 const EXPIRATION_TIME_HOURS = 12;
-const JWT_SECRET = "secret";
+const JWT_SECRET = process.env.JWT_SECRET || "secret";
 
 // generate a random email token of 6 digits
 function generateEmailToken() {
