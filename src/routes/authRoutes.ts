@@ -2,6 +2,8 @@ import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import jwt from "jsonwebtoken";
 
+import { sendEmailToken } from "../services/emailService";
+
 const router = Router();
 const prisma = new PrismaClient();
 const EXPIRATION_TIME_MINUTES = 10;
@@ -54,6 +56,8 @@ router.get("/login", async (req, res) => {
             },
         });
         console.log(token);
+        // send email to the user
+        await sendEmailToken(email, emailToken);
         res.json({ token });
     } catch (e) {
         res.status(500).json({ message: "Something went wrong" });
