@@ -41,5 +41,3 @@ export async function sendEmailToken(email: string, token: string) {
         return e;
     }
 }
-
-sendEmailToken("rk212300@gmail.com", "123456");

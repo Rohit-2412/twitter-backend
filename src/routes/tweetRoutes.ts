@@ -15,7 +15,8 @@ router.post("/", async (req: AuthRequest, res: Response) => {
     const user = req.user;
 
     if (!user) {
-        return res.status(401).json({ message: "Not authorized" });
+        res.status(401).json({ message: "Not authorized" });
+        return;
     }
 
     try {
@@ -24,6 +25,9 @@ router.post("/", async (req: AuthRequest, res: Response) => {
                 content,
                 image,
                 userId: user.id,
+            },
+            include: {
+                user: true,
             },
         });
         res.json(data);
@@ -45,11 +49,15 @@ router.get("/", async (req, res) => {
                 },
             },
         },
+        orderBy: {
+            createdAt: "desc",
+        },
     });
+    // console.log(allTweets);
     if (allTweets.length > 0) {
-        return res.json(allTweets);
+        res.send(allTweets);
     } else {
-        res.status(404).json({ message: "No tweets found" });
+        res.status(200).json({ message: "No tweets found" });
     }
 });
 
